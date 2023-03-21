@@ -35,31 +35,66 @@ function App() {
   };
 
   const deleteTodoBox = async id => {
-    const data = await fetch(API_BASE + "/todos/delete/" + id, {
-      method: "DELETE"
-    }).then(res => res.json())
+    try {
+      await axios.delete(`http://localhost:5000/todos/delete/${id}`);
+      const deleteTodo = todos.filter((item) => item._id !== id)
+      setTodos(deleteTodo)
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-    setTodos(todos => todos.filter(todo => todo._id !== data._id))
-  }
+  const createTodo = async () => {
+    try {
+      const result = await axios.post(`http://localhost:5000/todos/new`, {
+        text: newMessage
+      });
+
+      setTodos([...todos, result.data]);
+      setPopupActive(false);
+      setNewMessage("");
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 
   return (
-    <div className='flex flex-col p-[4%] leading-[500%]'>
+    <div className='flex flex-col p-[4%] leading-[500%] '>
       <h1>My Todolist</h1>
       <p className='text-[150%]'>Lists :</p>
-
-      <section className='flex items-center flex-col gap-[3rem]'>
+      {/* flex items-center gap-[3rem] */}
+      <section className='todolist-box'>
         {todos.map((item, index) => (
           <div className={"todobox" + (item.complete ? "is-complete" : "")} key={index}>
-            <div className='checkbox' onClick={() => checkBox(item._id)}></div>
-            <p className='px-[7%]'>{item.text}</p>
-            <div className='deleteButton' onClick={() => deleteTodoBox(item._id)}>x</div>
+            <div className='flex items-center w-[90%]'>
+              <div className='checkbox' onClick={() => checkBox(item._id)}></div>
+              <p className='px-[7%]'>{item.text.slice(0, 80)}</p></div>
+            <div>
+              <div className='deleteButton' onClick={() => deleteTodoBox(item._id)}>x</div>
+            </div>
           </div>
         ))}
 
       </section >
-    </div >
-  )
+      <section className='w-[100%] flex justify-center relative'>
+        <div className='addTodo' onClick={() => setPopupActive(true)}>+</div>
+        {popupActive ? (
+          <div className='todoPopup'>
+            <div className='closePopup' onClick={() => setPopupActive(false)}>x
+            </div>
+            <div className='flex flex-col items-center'>
+              <h3>Add Todolist !</h3>
+              <input type="text" className='add-todo rounded-[15px]' onChange={(e) => setNewMessage(e.target.value)} value={newMessage} />
+              <div className='createButton' onClick={createTodo}>Create</div>
+            </div>
+          </div>
+        ) : ""}
+      </section>
+    </div>
+
+  );
 }
+
 
 export default App

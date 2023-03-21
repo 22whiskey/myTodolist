@@ -31,12 +31,20 @@ app.get('/todos', async (req, res) => {
 })
 
 app.post('/todos/new', async (req, res) => {
-    const todo = new Todoserver({
-        text: req.body.text
-    });
-    todo.save()
-    res.json(todo)
-});
+    const todoData = new Todoserver({ ...req.body });
+    await todoData.save();
+    res.json(todoData)
+}
+);
+
+
+// app.post('/todos/new', async (req, res) => {
+//     const todo = new Todoserver({
+//         text: req.body.text
+//     });
+//     todo.save()
+//     res.json(todo)
+// });
 // Todoserver.push({
 //     ...req.body,
 // })

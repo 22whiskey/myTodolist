@@ -15,22 +15,29 @@ h1 {
   font-weight: 900;
 }
 
+.todolist-box {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 3rem;
+}
+
 .todobox {
   display: flex;
   padding-left: 2%;
   align-items: center;
-  width: 100%;
   border-radius: 15px;
-  background-color: teal;
-  cursor: pointer;
+  background: linear-gradient(to right, teal, rgb(5, 119, 134));
+  transition: 1s;
 }
+
 
 .checkbox {
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
-  background-color: black;
+  background: linear-gradient(to right, rgba(232, 25, 39, 0.791), rgb(227, 27, 67));
   transition: 1s;
+  cursor: pointer;
 }
 
 .todoboxis-complete {
@@ -40,21 +47,95 @@ h1 {
   width: 100%;
   border-radius: 15px;
   background-color: teal;
-  cursor: pointer;
+  transition: 1s;
+  box-shadow: 0cm 0cm 0.5cm teal;
+  border: 1px solid rgb(0, 184, 184);
 }
 
 .todoboxis-complete .checkbox {
-  background-color: white;
+
+  cursor: pointer;
+  background: linear-gradient(to right, rgb(39, 220, 51), rgb(18, 210, 162));
 }
 
-
-.deletebox {
+.deleteButton {
   width: 2rem;
   height: 2rem;
-  background-color: red;
+  background: linear-gradient(to right, rgba(0, 128, 128, 0.468), rgba(173, 216, 230, 0.462));
+  outline: none;
+  border: none;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+}
+
+.addTodo {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 85%;
+  left: 90%;
+  background: linear-gradient(to right, teal, lightblue);
+  border-radius: 50%;
+  width: 5%;
+  height: 10%;
+  font-size: 350%;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.todoPopup {
+  position: fixed;
+  top: 30%;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(to right, teal, lightblue);
+  box-shadow: 0cm 0cm 1cm teal;
+  border-radius: 15px;
+
+}
+
+.add-todo {
+  width: 30vw;
+  padding-left: 5%;
+  padding-right: 5%;
+  color: black;
+  letter-spacing: 0.5rem;
+  margin-bottom: 5%;
+}
+
+.closePopup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: absolute;
+  top: -5%;
+  right: -1%;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  background: linear-gradient(to right, teal, lightblue);
+}
+
+.createButton {
+  padding-left: 2%;
+  padding-right: 2%;
+  background: linear-gradient(to left, teal, lightblue);
+  border-radius: 45px;
+  width: 50%;
+  margin-bottom: 5%;
+  cursor: pointer;
+}
+
+.deleteButton:active,
+.createButton:active,
+.addTodo:active {
+  opacity: 50%;
 }
